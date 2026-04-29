@@ -1,15 +1,60 @@
-# ACIT 2911 - Group 18 Project (Pending)
+# BCIT Study Room Booking System Redesign
 
 ## Overview
 
-This project is currently in the early stages of development.  
-The idea and planning phase are pending. This repository serves as an initial setup and structure for future work.
+This project focuses on redesigning the BCIT study room booking system to improve usability, clarity, and overall user experience.
 
-## Status
+The goal is to create a simple, efficient web application that allows students to:
 
-- Planning not started
-- Idea not finalized
-- Initial repository setup
+- View available study rooms
+- Check time slot availability
+- Book rooms without confusion or friction
+
+This project is being developed using a Flask backend, SQLite database, and a lightweight HTML/CSS frontend.
+
+---
+
+## Tech Stack
+
+- **Backend:** Python (Flask)
+- **Database:** SQLite
+- **Frontend:** HTML, CSS
+
+---
+
+## Features (Planned)
+
+- View list of study rooms
+- View available booking time slots
+- Create a booking
+- Prevent double bookings
+- Display booking confirmation
+
+---
+
+## Current Status
+
+- Initial project setup complete
+- Basic workflow established
+- Sprint 1 in progress
+
+---
+
+## Sprint 1 Goal
+
+Deliver a basic working frontend structure with Flask:
+
+- Serve homepage (`/`)
+- Implement shared layout (`base.html`)
+- Create basic navigation between pages:
+  - Home
+  - Rooms
+  - Booking
+- Set up placeholder routes in Flask
+
+> No database or booking logic in this sprint.
+
+---
 
 ## Team Members
 
@@ -20,13 +65,15 @@ The idea and planning phase are pending. This repository serves as an initial se
 - Joshua Otieno
 - Dalli Kubat
 
+---
+
 ## Next Steps
 
-- Define project idea
-- Outline requirements
-- Assign roles and responsibilities
-- Begin initial development
+- Finalize database schema
+- Implement Flask routes for rooms and bookings
+- Connect frontend templates to backend data
+- Create basic booking validation logic
 
 ---
 
-_Initial commit – project setup_
+_ACIT 2911 – Group 18_
