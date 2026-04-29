@@ -52,7 +52,7 @@ Fix folder naming
 
 ### 5. Basic Rules
 
-Do not commit directly to main
-Pull from main before starting new work
-Keep commits small and focused
-Communicate before editing the same files
+- Do not commit directly to main
+- Pull from main before starting new work
+- Keep commits small and focused
+- Communicate before editing the same files
