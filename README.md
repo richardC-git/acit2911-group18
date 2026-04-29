@@ -12,15 +12,11 @@ The goal is to create a simple, efficient web application that allows students t
 
 This project is being developed using a Flask backend, SQLite database, and a lightweight HTML/CSS frontend.
 
----
-
 ## Tech Stack
 
 - **Backend:** Python (Flask)
 - **Database:** SQLite
 - **Frontend:** HTML, CSS
-
----
 
 ## Features (Planned)
 
@@ -30,15 +26,11 @@ This project is being developed using a Flask backend, SQLite database, and a li
 - Prevent double bookings
 - Display booking confirmation
 
----
-
 ## Current Status
 
 - Initial project setup complete
 - Basic workflow established
 - Sprint 1 in progress
-
----
 
 ## Sprint 1 Goal
 
@@ -54,8 +46,6 @@ Deliver a basic working frontend structure with Flask:
 
 > No database or booking logic in this sprint.
 
----
-
 ## Team Members
 
 - Richard Cunningham
@@ -64,16 +54,5 @@ Deliver a basic working frontend structure with Flask:
 - Arash Farzaneh
 - Joshua Otieno
 - Dalli Kubat
-
----
-
-## Next Steps
-
-- Finalize database schema
-- Implement Flask routes for rooms and bookings
-- Connect frontend templates to backend data
-- Create basic booking validation logic
-
----
 
 _ACIT 2911 – Group 18_
