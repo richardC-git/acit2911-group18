@@ -11,14 +11,6 @@ The idea and planning phase are pending. This repository serves as an initial se
 - Idea not finalized
 - Initial repository setup
 
-## Project Structure
-
-/project-root
-│── README.md
-│── src/ # Source code (to be added)
-│── docs/ # Documentation (to be added)
-│── tests/ # Tests (to be added)
-
 ## Team Members
 
 - Richard Cunningham
