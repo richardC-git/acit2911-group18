@@ -55,4 +55,17 @@ Deliver a basic working frontend structure with Flask:
 - Joshua Otieno
 - Dalli Kubat
 
+## Run Instructions
+
+Once cloned, run this project via `uv run python src/app.py`
+
+Visit the hosted page at http://127.0.0.1:5000
+
+Current routes available:
+
+- `/` - Homepage
+- `/bookings` - Placeholder, pending design
+- `/rooms` - Placeholder, pending design
+- `/sample` - Joshua's functional sample design
+
 _ACIT 2911 – Group 18_
