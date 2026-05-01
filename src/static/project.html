@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyRoom | Dashboard</title>
+
+  <link rel="stylesheet" href="static/css/styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container nav-wrapper">
+      <div class="logo">
+        <div class="logo-box">SR</div>
+        <span class="logo-text">StudyRoom</span>
+      </div>
+
+      <nav class="nav">
+        <button onclick="showView('dashboard')" id="nav-dashboard" class="nav-btn active">
+          <i data-lucide="home"></i>
+          Dashboard
+        </button>
+
+        <button onclick="showView('browse')" id="nav-browse" class="nav-btn">
+          <i data-lucide="search"></i>
+          Browse Rooms
+        </button>
+
+        <button onclick="showView('bookings')" id="nav-bookings" class="nav-btn">
+          <i data-lucide="calendar"></i>
+          My Bookings
+        </button>
+      </nav>
+
+      <div class="user-actions">
+        <div class="avatar">JD</div>
+        <button class="logout">
+          <i data-lucide="log-out"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section id="view-dashboard" class="view">
+  <div class="home-hero">
+    <div class="home-text">
+      <span class="home-badge">StudyRoom Booking System</span>
+
+      <h1>Welcome to StudyRoom</h1>
+
+      <p>
+        StudyRoom helps students view available TEC Hub study rooms and plan their
+        study sessions in one simple place. Students can browse study rooms, check
+        room details, and create basic booking requests.
+      </p>
+
+      <div class="home-buttons">
+        <button onclick="showView('browse')" class="primary-btn">
+          <i data-lucide="search"></i>
+          Study Rooms
+        </button>
+
+        <button onclick="showView('bookings')" class="secondary-btn">
+          <i data-lucide="calendar-plus"></i>
+          Create Booking
+        </button>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <h2>Project Features</h2>
+
+      <div class="home-feature">
+        <i data-lucide="building-2"></i>
+        <div>
+          <h3>View Study Rooms</h3>
+          <p>See TEC Hub study rooms with photos, room numbers, capacity, and descriptions.</p>
+        </div>
+      </div>
+
+      <div class="home-feature">
+        <i data-lucide="calendar-check"></i>
+        <div>
+          <h3>Create Bookings</h3>
+          <p>Use the bookings page to enter your name, room, date, and time.</p>
+        </div>
+      </div>
+
+      <div class="home-feature">
+        <i data-lucide="users"></i>
+        <div>
+          <h3>Plan Group Study</h3>
+          <p>Choose a room that fits your group size and study needs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="view-browse" class="view hidden">
+      <div class="page-heading">
+        <div>
+          <h1>Browse Rooms</h1>
+          <p>Find and book the perfect study space for your needs.</p>
+        </div>
+      </div>
+
+      <input class="search-input" type="text" placeholder="Search by name or location..." />
+
+      <div class="room-grid">
+        <div class="room-card">
+          <div class="image-box">
+            <img src="static/images/room587.jpg" alt="TEC Hub Room 587" />
+            <div class="capacity">
+              <i data-lucide="users"></i>
+              4
+            </div>
+          </div>
+
+          <div class="room-content">
+            <div class="room-title">
+              <h2>TEC Hub Room 587</h2>
+              <span>Available</span>
+            </div>
+
+            <p>Private study room located in the TEC Hub, designed for small group collaboration. 
+                Equipped with a wall-mounted display, round table, and comfortable seating for up to 4 people. 
+                               Ideal for discussions, group assignments, and focused study sessions.</p>
+
+            <div class="room-footer">
+              <div class="features">
+                <span>Display screen</span>
+                <span>Group seating</span>
+                <span>Quiet Space </span>
+              </div>
+              <button>Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <div class="image-box">
+            <img src="static/images/room586.jpg" alt="TEC Hub Room 586" />
+            <div class="capacity">
+              <i data-lucide="users"></i>
+              5
+            </div>
+          </div>
+
+          <div class="room-content">
+            <div class="room-title">
+              <h2>TEC Hub Room 586</h2>
+              <span>Available</span>
+            </div>
+
+            <p>Compact and quiet study room within the TEC Hub, suitable for small groups or individual focus. 
+                    Features a collaborative table setup with seating and a distraction-free environment, 
+                  perfect for studying or team meetings</p>
+
+            <div class="room-footer">
+              <div class="features">
+                <span>Quiet Room</span>
+                <span>Group Table </span>
+                <span>Distraction-Free</span>
+              </div>
+              <button>Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-bookings" class="view hidden">
+      <h1>My Bookings</h1>
+      <div class="empty-card">
+        <p>You don't have any bookings yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    function showView(viewName) {
+      document.getElementById("view-dashboard").classList.add("hidden");
+      document.getElementById("view-browse").classList.add("hidden");
+      document.getElementById("view-bookings").classList.add("hidden");
+
+      document.getElementById("view-" + viewName).classList.remove("hidden");
+
+      const navIds = ["dashboard", "browse", "bookings"];
+
+      navIds.forEach(id => {
+        const navButton = document.getElementById("nav-" + id);
+
+        if (id === viewName) {
+          navButton.classList.add("active");
+        } else {
+          navButton.classList.remove("active");
+        }
+      });
+
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
