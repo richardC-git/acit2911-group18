@@ -1,0 +1,537 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: Arial, sans-serif;
+  color: #0f172a;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header {
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-wrapper {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo,
+.nav,
+.user-actions,
+.nav-btn,
+.logout,
+.primary-btn,
+.secondary-btn,
+.room-footer,
+.features,
+.capacity,
+.home-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  gap: 12px;
+}
+
+.logo-box {
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.nav {
+  gap: 8px;
+}
+
+.nav-btn {
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  color: #475569;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.nav-btn svg,
+.logout svg,
+.primary-btn svg,
+.secondary-btn svg,
+.capacity svg,
+.home-feature svg {
+  width: 18px;
+  height: 18px;
+}
+
+.user-actions {
+  gap: 16px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.logout {
+  gap: 8px;
+  border: none;
+  background: none;
+  color: #64748b;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.main {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.view {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* HOME PAGE */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+  min-height: 65vh;
+}
+
+.home-badge {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #2563eb;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.home-text h1 {
+  font-size: 56px;
+  margin: 0 0 20px;
+}
+
+.home-text p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 650px;
+}
+
+.home-buttons {
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.home-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.home-card h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.home-feature {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid #e2e8f0;
+  padding: 20px 0;
+}
+
+.home-feature h3 {
+  margin: 0 0 6px;
+}
+
+.home-feature p {
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.home-feature svg {
+  color: #2563eb;
+  margin-top: 4px;
+}
+
+/* GENERAL PAGE STYLING */
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 0;
+}
+
+.page-heading p {
+  font-size: 18px;
+  color: #64748b;
+}
+
+.primary-btn {
+  gap: 8px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.secondary-btn {
+  gap: 8px;
+  background-color: white;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background-color: #eff6ff;
+}
+
+/* STUDY ROOMS PAGE */
+
+.search-input {
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 32px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.room-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.image-box {
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.capacity {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  gap: 6px;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: bold;
+}
+
+.room-content {
+  padding: 28px;
+}
+
+.room-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+
+.room-title h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.room-title span {
+  background-color: #ecfdf5;
+  color: #059669;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.room-content p {
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.room-footer {
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.features {
+  gap: 16px;
+  color: #94a3b8;
+  font-weight: bold;
+  flex-wrap: wrap;
+}
+
+.room-footer button {
+  background-color: #0f172a;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.room-footer button:hover {
+  background-color: #2563eb;
+}
+
+/* BOOKINGS PAGE */
+
+.booking-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  max-width: 700px;
+}
+
+.booking-form {
+  display: grid;
+  gap: 20px;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #334155;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  font-size: 16px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .home-text h1 {
+    font-size: 42px;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .room-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-footer {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+  min-height: 65vh;
+}
+
+.home-badge {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #2563eb;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.home-text h1 {
+  font-size: 56px;
+  margin: 0 0 20px;
+}
+
+.home-text p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 650px;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.secondary-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background-color: #eff6ff;
+}
+
+.home-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.home-card h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.home-feature {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid #e2e8f0;
+  padding: 20px 0;
+}
+
+.home-feature h3 {
+  margin: 0 0 6px;
+}
+
+.home-feature p {
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.home-feature svg {
+  color: #2563eb;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .home-text h1 {
+    font-size: 42px;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
