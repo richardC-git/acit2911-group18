@@ -32,19 +32,8 @@ This project is being developed using a Flask backend, SQLite database, and a li
 - Basic workflow established
 - Sprint 1 in progress
 
-## Sprint 1 Goal
-
-Deliver a basic working frontend structure with Flask:
-
-- Serve homepage (`/`)
-- Implement shared layout (`base.html`)
-- Create basic navigation between pages:
-  - Home
-  - Rooms
-  - Booking
-- Set up placeholder routes in Flask
-
-> No database or booking logic in this sprint.
+## Sprint 2 Goal
+Basic CRUD functionality, finalizing page designs, implementing Peewee ORM for database, finalize database design
 
 ## Team Members
 
@@ -57,7 +46,7 @@ Deliver a basic working frontend structure with Flask:
 
 ## Run Instructions
 
-Once cloned, run this project via `uv run python src/app.py`
+Once cloned and synced (via `uv sync`), run this project via `uv run python src/app.py`
 
 Visit the hosted page at http://127.0.0.1:5000
 
