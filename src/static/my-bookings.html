@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomBook - My Bookings</title>
-  <link rel="stylesheet" href="my-bookings.css">
+  <link rel="stylesheet" href="/static/css/my-bookings.css">
 </head>
 <body>
 
@@ -17,13 +17,13 @@
       </div>
 
       <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="my-bookings.html" class="active">My Bookings</a>
-        <a href="calendar.html">Calendar</a>
+        <a href="/">Dashboard</a>
+        <a href="/rooms">Rooms</a>
+        <a href="/my-bookings" class="active">My Bookings</a>
+        <a href="/calendar">Calendar</a>
       </nav>
 
-      <a href="new-booking.html" class="new-booking">+ New Booking</a>
+      <a href="/new-booking" class="new-booking">+ New Booking</a>
     </aside>
 
     <main class="main">
@@ -33,7 +33,7 @@
           <p>View your meeting room bookings</p>
         </div>
 
-        <a href="new-booking.html" class="top-button">+ New Booking</a>
+        <a href="/new-booking" class="top-button">+ New Booking</a>
       </header>
 
       <section class="tabs">
@@ -47,7 +47,7 @@
           <p class="icon">Calendar</p>
           <h3>No bookings found</h3>
           <p>You currently do not have any room bookings.</p>
-          <a href="new-booking.html">Book a Room</a>
+          <a href="/new-booking">Book a Room</a>
         </div>
       </section>
     </main>
