@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomBook - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>Room<span>Book</span></h1>
+        <p>Meeting Room System</p>
+      </div>
+
+      <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="my-bookings.html">My Bookings</a>
+        <a href="calendar.html">Calendar</a>
+      </nav>
+
+      <a href="new-booking.html" class="new-booking">+ New Booking</a>
+    </aside>
+
+    <main class="main">
+
+      <header class="header">
+        <div>
+          <h2>Dashboard</h2>
+          <p>Thursday, April 30, 2026</p>
+        </div>
+
+        <a href="new-booking.html" class="top-button">+ New Booking</a>
+      </header>
+
+      <section class="stats">
+
+        <article class="stat-card">
+          <div class="icon">Rooms</div>
+          <div>
+            <p>Total Rooms</p>
+            <h3>9</h3>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="icon orange">Today</div>
+          <div>
+            <p>Today's Bookings</p>
+            <h3>0</h3>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="icon">Soon</div>
+          <div>
+            <p>Upcoming</p>
+            <h3>0</h3>
+          </div>
+        </article>
+
+      </section>
+
+      <section class="booking-title">
+        <h2>Upcoming Bookings</h2>
+        <a href="my-bookings.html">View all →</a>
+      </section>
+
+      <section class="empty-card">
+        <div class="empty-content">
+          <p class="empty-icon">Calendar</p>
+          <p>No upcoming bookings</p>
+          <a href="new-booking.html">Book a Room</a>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
