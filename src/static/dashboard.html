@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomBook - Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
 </head>
 <body>
 
@@ -17,13 +17,13 @@
       </div>
 
       <nav>
-        <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="my-bookings.html">My Bookings</a>
-        <a href="calendar.html">Calendar</a>
+        <a href="/" class="active">Dashboard</a>
+        <a href="/rooms">Rooms</a>
+        <a href="/my-bookings">My Bookings</a>
+        <a href="/calendar">Calendar</a>
       </nav>
 
-      <a href="new-booking.html" class="new-booking">+ New Booking</a>
+      <a href="/new-booking" class="new-booking">+ New Booking</a>
     </aside>
 
     <main class="main">
@@ -34,7 +34,7 @@
           <p>Thursday, April 30, 2026</p>
         </div>
 
-        <a href="new-booking.html" class="top-button">+ New Booking</a>
+        <a href="/new-booking" class="top-button">+ New Booking</a>
       </header>
 
       <section class="stats">
@@ -67,14 +67,14 @@
 
       <section class="booking-title">
         <h2>Upcoming Bookings</h2>
-        <a href="my-bookings.html">View all →</a>
+        <a href="/my-bookings">View all →</a>
       </section>
 
       <section class="empty-card">
         <div class="empty-content">
           <p class="empty-icon">Calendar</p>
           <p>No upcoming bookings</p>
-          <a href="new-booking.html">Book a Room</a>
+          <a href="/new-booking">Book a Room</a>
         </div>
       </section>
 
