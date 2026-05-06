@@ -1,15 +1,99 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Rooms</title>
-  </head>
-  <body>
-    <h1>Rooms Page</h1>
-    <p>This is the rooms page.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomBook - Rooms</title>
+  <link rel="stylesheet" href="rooms.css">
+</head>
+<body>
 
-    <nav>
-      <a href="/">Home</a> | <a href="/rooms">Rooms</a> |
-      <a href="/bookings">Bookings</a>
-    </nav>
-  </body>
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>Room<span>Book</span></h1>
+        <p>Meeting Room System</p>
+      </div>
+
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="rooms.html" class="active">Rooms</a>
+        <a href="my-bookings.html">My Bookings</a>
+        <a href="calendar.html">Calendar</a>
+      </nav>
+
+      <a href="new-booking.html" class="new-booking">+ New Booking</a>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div>
+          <h2>Rooms</h2>
+          <p>Browse available meeting rooms</p>
+        </div>
+
+        <a href="new-booking.html" class="top-button">+ New Booking</a>
+      </header>
+
+      <section class="rooms">
+
+        <article class="room-card">
+          <div class="room-image">
+            <p>Meeting Room</p>
+          </div>
+
+          <div class="room-details">
+            <h3>Techub 587</h3>
+            <p>Capacity: 12 people</p>
+            <p>Features: Projector, whiteboard, video meeting setup</p>
+            <a href="new-booking.html">Book Room</a>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div class="room-image">
+            <p>Meeting Room</p>
+          </div>
+
+          <div class="room-details">
+            <h3>Techhub 588</h3>
+            <p>Capacity: 8 people</p>
+            <p>Features: TV screen, whiteboard, Wi-Fi</p>
+            <a href="new-booking.html">Book Room</a>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div class="room-image">
+            <p>Meeting Room</p>
+          </div>
+
+          <div class="room-details">
+            <h3>Techub 589</h3>
+            <p>Capacity: 10 people</p>
+            <p>Features: Projector, speakers, whiteboard</p>
+            <a href="new-booking.html">Book Room</a>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <div class="room-image">
+            <p>Meeting Room</p>
+          </div>
+
+          <div class="room-details">
+            <h3>Techub 590</h3>
+            <p>Capacity: 20 people</p>
+            <p>Features: Desks, projector, presentation screen</p>
+            <a href="new-booking.html">Book Room</a>
+          </div>
+        </article>
+
+      </section>
+    </main>
+
+  </div>
+
+</body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomBook - My Bookings</title>
+  <link rel="stylesheet" href="my-bookings.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>Room<span>Book</span></h1>
+        <p>Meeting Room System</p>
+      </div>
+
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="my-bookings.html" class="active">My Bookings</a>
+        <a href="calendar.html">Calendar</a>
+      </nav>
+
+      <a href="new-booking.html" class="new-booking">+ New Booking</a>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div>
+          <h2>My Bookings</h2>
+          <p>View your meeting room bookings</p>
+        </div>
+
+        <a href="new-booking.html" class="top-button">+ New Booking</a>
+      </header>
+
+      <section class="tabs">
+        <a href="#" class="active-tab">Upcoming</a>
+        <a href="#">Past</a>
+        <a href="#">Cancelled</a>
+      </section>
+
+      <section class="empty-card">
+        <div class="empty-content">
+          <p class="icon">Calendar</p>
+          <h3>No bookings found</h3>
+          <p>You currently do not have any room bookings.</p>
+          <a href="new-booking.html">Book a Room</a>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+</body>
+</html>

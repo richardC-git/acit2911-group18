@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f6f7fb;
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 238px;
+  background-color: #2f5bc8;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  padding: 34px 16px;
+}
+
+.logo h1 {
+  font-family: Georgia, serif;
+  font-size: 26px;
+}
+
+.logo span {
+  color: #ffb11f;
+}
+
+.logo p {
+  margin-top: 6px;
+  color: #c8d5ff;
+  font-size: 14px;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+}
+
+nav a {
+  color: #c8d5ff;
+  text-decoration: none;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+nav a:hover,
+nav .active {
+  background-color: #315fcf;
+  color: white;
+}
+
+.new-booking {
+  margin: auto 8px 16px;
+  background-color: #ffad16;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  padding: 11px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.main {
+  flex: 1;
+  padding: 32px 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.header h2 {
+  font-family: Georgia, serif;
+  font-size: 36px;
+  color: #365fb4;
+}
+
+.header p {
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.top-button {
+  background-color: #ffad16;
+  color: black;
+  text-decoration: none;
+  padding: 13px 21px;
+  border-radius: 9px;
+  font-weight: bold;
+  height: fit-content;
+}
+
+.rooms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.room-card {
+  width: 300px;
+  background-color: white;
+  border: 1px solid #e3e7ee;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.room-image {
+  height: 120px;
+  background-color: #eef3ff;
+  color: #365fb4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-image p {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.room-details {
+  padding: 18px;
+}
+
+.room-details h3 {
+  font-family: Georgia, serif;
+  color: #365fb4;
+  margin-bottom: 8px;
+}
+
+.room-details p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 9px;
+}
+
+.room-details a {
+  display: inline-block;
+  background-color: #ffad16;
+  color: black;
+  text-decoration: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .room-card {
+    width: 100%;
+  }
+}
