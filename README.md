@@ -52,9 +52,10 @@ Visit the hosted page at http://127.0.0.1:5000
 
 Current routes available:
 
-- `/` - Homepage
-- `/bookings` - Placeholder, pending design
-- `/rooms` - Placeholder, pending design
-- `/sample` - Joshua's functional sample design
+- `/`
+- `/my-bookings`
+- `/rooms`
+- `/calendar`
+- `/new-booking`
 
 _ACIT 2911 – Group 18_
