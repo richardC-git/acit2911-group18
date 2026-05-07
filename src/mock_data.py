@@ -1,0 +1,128 @@
+users = [
+    {"id": 1, "name": "Richard Cunningham", "email": "richard@example.com"},
+    {"id": 2, "name": "Luke Dimal", "email": "luke@example.com"},
+    {"id": 3, "name": "Christian Do", "email": "christian@example.com"},
+    {"id": 4, "name": "Arash Farzaneh", "email": "arash@example.com"},
+    {"id": 5, "name": "Dalli Kubat", "email": "dalli@example.com"},
+    {"id": 6, "name": "Joshua Otieno", "email": "joshua@example.com"},
+]
+
+
+studyrooms = [
+    {
+        "id": 1,
+        "room_number": "582",
+        "campus": "Downtown - Tech Hub Floor 5/6",
+        "capacity": "2-4 people",
+        "features": "Tap card access, whiteboard",
+        "description": "Small quiet study room for focused work.",
+    },
+    {
+        "id": 2,
+        "room_number": "583",
+        "campus": "Downtown - Tech Hub Floor 5/6",
+        "capacity": "4-6 people",
+        "features": "Whiteboard, laptop connection",
+        "description": "Modern study room for small group collaboration.",
+    },
+    {
+        "id": 3,
+        "room_number": "586",
+        "campus": "Downtown - Tech Hub Floor 5/6",
+        "capacity": "6-8 people",
+        "features": "Display screen, speakers, whiteboard",
+        "description": "Collaborative room ideal for team meetings and projects.",
+    },
+    {
+        "id": 4,
+        "room_number": "587",
+        "campus": "Downtown - Tech Hub Floor 5/6",
+        "capacity": "8-10 people",
+        "features": "Projector, presentation screen",
+        "description": "Large room designed for presentations and group discussions.",
+    },
+    {
+        "id": 5,
+        "room_number": "130D",
+        "campus": "Burnaby SE14 Library",
+        "capacity": "Up to 6 people",
+        "features": "Computer, LCD display, laptop hookup, whiteboard",
+        "description": "Large project room with presentation equipment.",
+    },
+    {
+        "id": 6,
+        "room_number": "130E",
+        "campus": "Burnaby SE14 Library",
+        "capacity": "Up to 6 people",
+        "features": "LCD display, laptop hookup, whiteboard",
+        "description": "Comfortable group study room with collaboration tools.",
+    },
+    {
+        "id": 7,
+        "room_number": "138",
+        "campus": "Burnaby SE14 Library",
+        "capacity": "Up to 4 people",
+        "features": "Computer, whiteboard",
+        "description": "Quiet room for studying and focused work.",
+    },
+    {
+        "id": 8,
+        "room_number": "141",
+        "campus": "Burnaby SE14 Library",
+        "capacity": "8-10 people",
+        "features": "80-inch display, laptop hookup, whiteboard",
+        "description": "Spacious room for larger study groups and presentations.",
+    },
+    {
+        "id": 9,
+        "room_number": "312",
+        "campus": "Burnaby SE14 Library",
+        "capacity": "8-10 people",
+        "features": "Presentation display, whiteboard",
+        "description": "Group collaboration room with presentation setup.",
+    },
+]
+
+
+bookings = [
+    {
+        "id": 1,
+        "user_id": 1,
+        "room_id": 1,
+        "start_time": "2026-05-04 11:00",
+        "end_time": "2026-05-04 12:00",
+        "status": "active",
+    },
+    {
+        "id": 2,
+        "user_id": 2,
+        "room_id": 4,
+        "start_time": "2026-05-04 09:00",
+        "end_time": "2026-05-04 10:00",
+        "status": "active",
+    },
+    {
+        "id": 3,
+        "user_id": 3,
+        "room_id": 6,
+        "start_time": "2026-05-05 12:00",
+        "end_time": "2026-05-05 13:00",
+        "status": "cancelled",
+    },
+    {
+        "id": 4,
+        "user_id": 4,
+        "room_id": 7,
+        "start_time": "2026-05-05 14:00",
+        "end_time": "2026-05-05 15:00",
+        "status": "active",
+    },
+    {
+        "id": 5,
+        "user_id": 5,
+        "room_id": 2,
+        "start_time": "2026-05-06 10:00",
+        "end_time": "2026-05-06 11:00",
+        "status": "cancelled",
+    },
+]

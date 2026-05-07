@@ -178,3 +178,18 @@ nav .active {
     width: 100%;
   }
 }
+
+.slots {
+  margin-top: 12px;
+}
+
+.slots ul {
+  padding-left: 18px;
+  margin-top: 6px;
+}
+
+.slots li {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 4px;
+}
