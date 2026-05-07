@@ -39,72 +39,67 @@
         </a>
       </header>
 
-      <section class="rooms" id="rooms-list">
-      </section>
+      <section class="rooms" id="rooms-list"></section>
 
     </main>
 
   </div>
 
   <script>
-fetch("/api/rooms")
-  .then(response => response.json())
-  .then(rooms => {
-    const roomsList = document.getElementById("rooms-list");
+    fetch("/api/rooms")
+      .then(response => response.json())
+      .then(rooms => {
+        const roomsList = document.getElementById("rooms-list");
 
-    rooms.forEach(room => {
+        rooms.forEach(room => {
+          fetch(`/api/rooms/${room.id}/available-slots`)
+            .then(response => response.json())
+            .then(slots => {
+              let slotsHtml = "";
 
-      fetch(`/api/rooms/${room.id}/available-slots`)
-        .then(response => response.json())
-        .then(slots => {
+              slots.forEach(slot => {
+                slotsHtml += `
+                  <li>
+                    ${slot.start_time.slice(11, 16)} -
+                    ${slot.end_time.slice(11, 16)}
+                  </li>
+                `;
+              });
 
-          let slotsHtml = "";
+              const card = document.createElement("article");
+              card.className = "room-card";
 
-          slots.forEach(slot => {
-            slotsHtml += `
-              <li>
-                ${slot.start_time.slice(11,16)} -
-                ${slot.end_time.slice(11,16)}
-              </li>
-            `;
-          });
+              card.innerHTML = `
+                <div class="room-image">
+                  <p>Study Room</p>
+                </div>
 
-          const card = document.createElement("article");
-          card.className = "room-card";
+                <div class="room-details">
+                  <h3>Room ${room.room_number}</h3>
 
-          card.innerHTML = `
-            <div class="room-image">
-              <p>Study Room</p>
-            </div>
+                  <p><strong>Campus:</strong> ${room.campus}</p>
+                  <p><strong>Capacity:</strong> ${room.capacity}</p>
+                  <p><strong>Features:</strong> ${room.features}</p>
+                  <p>${room.description}</p>
 
-            <div class="room-details">
-              <h3>Room ${room.room_number}</h3>
+                  <div class="slots">
+                    <strong>Available Times:</strong>
+                    <ul>
+                      ${slotsHtml}
+                    </ul>
+                  </div>
 
-              <p><strong>Campus:</strong> ${room.campus}</p>
+                  <a href="/new-booking" class="top-button">
+                    Book Room
+                  </a>
+                </div>
+              `;
 
-              <p>${room.description}</p>
-
-              <div class="slots">
-                <strong>Available Times:</strong>
-                <ul>
-                  ${slotsHtml}
-                </ul>
-              </div>
-
-              <a href="/new-booking" class="top-button">
-                Book Room
-              </a>
-            </div>
-          `;
-
-          roomsList.appendChild(card);
-
+              roomsList.appendChild(card);
+            });
         });
-
-    });
-
-  });
-</script>
+      });
+  </script>
 
 </body>
 </html>
