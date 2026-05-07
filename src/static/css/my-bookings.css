@@ -170,6 +170,26 @@ nav .active {
   border-radius: 8px;
 }
 
+.booking-card {
+  background-color: white;
+  border: 1px solid #e3e7ee;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.booking-details h3 {
+  font-family: Georgia, serif;
+  color: #365fb4;
+  margin-bottom: 10px;
+}
+
+.booking-details p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
 @media screen and (max-width: 800px) {
   .page {
     flex-direction: column;
