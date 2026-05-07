@@ -1,3 +1,32 @@
-.pytest_cache
+# Virtual environment
 .venv/
+
+# Python cache files
 __pycache__/
+*.py[cod]
+*$py.class
+
+# Test / coverage output
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
