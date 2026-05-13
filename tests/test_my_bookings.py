@@ -97,15 +97,18 @@ def test_created_booking_appears_in_my_bookings(client):
     assert matching_booking["status"] == "active"
 
 
-def test_my_bookings_returns_empty_list_if_user_has_no_bookings(client, monkeypatch):
-    # Tests that /api/my-bookings can safely return an empty list
-    # when the current user has no bookings.
-    #
-    # This temporarily clears the mock bookings list during this test.
-    import routes.main
+def test_my_bookings_returns_empty_list_if_user_has_no_bookings(client):
+    from database import get_connection
 
-    monkeypatch.setattr(routes.main, "bookings", [])
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM bookings")
+
+    conn.commit()
+    conn.close()
 
     response = client.get("/api/my-bookings")
+
     assert response.status_code == 200
     assert response.get_json() == []
