@@ -86,12 +86,12 @@ studyrooms = [
 
 bookings = [
     {
-        "id": 1,
-        "user_id": 1,
-        "room_id": 1,
-        "start_time": "2026-05-04 11:00",
-        "end_time": "2026-05-04 12:00",
-        "status": "active",
+    "id": 1,
+    "user_id": 1,
+    "room_id": 1,
+    "start_time": "2026-05-04 11:00",
+    "end_time": "2026-05-04 12:00",
+    "status": "active",
     },
     {
         "id": 2,

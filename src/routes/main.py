@@ -1,5 +1,15 @@
 from flask import Blueprint, send_from_directory, jsonify, request
-from mock_data import studyrooms, bookings
+
+from database import (
+    get_all_rooms,
+    get_room_by_id,
+    get_bookings_by_user_id,
+    get_booking_by_id,
+    create_booking,
+    update_booking,
+    cancel_booking,
+    has_booking_conflict,
+)
 
 main_bp = Blueprint("main", __name__)
 
@@ -41,12 +51,13 @@ def new_booking(room_id):
 
 @main_bp.route("/api/rooms")
 def api_rooms():
-    return jsonify(studyrooms)
+    rooms = get_all_rooms()
+    return jsonify(rooms)
 
 
 @main_bp.route("/api/rooms/<int:room_id>")
 def api_room(room_id):
-    room = next((room for room in studyrooms if room["id"] == room_id), None)
+    room = get_room_by_id(room_id)
 
     if room is None:
         return jsonify({"error": "Room not found"}), 404
@@ -57,8 +68,9 @@ def api_room(room_id):
 @main_bp.route("/api/rooms/<int:room_id>/available-slots")
 def available_slots(room_id):
     date = request.args.get("date", "2026-05-04")
+    exclude_booking_id = request.args.get("exclude_booking_id", type=int)
 
-    room = next((room for room in studyrooms if room["id"] == room_id), None)
+    room = get_room_by_id(room_id)
 
     if room is None:
         return jsonify({"error": "Room not found"}), 404
@@ -69,25 +81,12 @@ def available_slots(room_id):
         requested_start = f"{date} {start}"
         requested_end = f"{date} {end}"
 
-        conflict = False
-
-        for booking in bookings:
-            if booking["room_id"] != room_id:
-                continue
-
-            if booking["status"] != "active":
-                continue
-
-            overlaps = not (
-                requested_end <= booking["start_time"]
-                or requested_start >= booking["end_time"]
-            )
-
-            if overlaps:
-                conflict = True
-                break
-
-        if not conflict:
+        if not has_booking_conflict(
+            room_id,
+            requested_start,
+            requested_end,
+            exclude_booking_id
+        ):
             available.append({
                 "start_time": requested_start,
                 "end_time": requested_end,
@@ -97,79 +96,89 @@ def available_slots(room_id):
 
 
 @main_bp.route("/api/bookings", methods=["POST"])
-def create_booking():
-    
+def api_create_booking():
     data = request.get_json()
 
     room_id = data.get("room_id")
     start_time = data.get("start_time")
     end_time = data.get("end_time")
 
-    # Temporary until login exists
     user_id = 1
 
     if room_id is None or start_time is None or end_time is None:
         return jsonify({"error": "Missing booking information"}), 400
 
-    room = next((room for room in studyrooms if room["id"] == room_id), None)
+    room = get_room_by_id(room_id)
 
     if room is None:
         return jsonify({"error": "Room not found"}), 404
 
-    for booking in bookings:
-        if booking["room_id"] != room_id:
-            continue
+    if has_booking_conflict(room_id, start_time, end_time):
+        return jsonify({"error": "Room is already booked for this time"}), 409
 
-        if booking["status"] != "active":
-            continue
-
-        overlaps = not (
-            end_time <= booking["start_time"]
-            or start_time >= booking["end_time"]
-        )
-
-        if overlaps:
-            return jsonify({"error": "Room is already booked for this time"}), 409
-
-    new_booking = {
-        "id": len(bookings) + 1,
-        "user_id": user_id,
-        "room_id": room_id,
-        "start_time": start_time,
-        "end_time": end_time,
-        "status": "active",
-    }
-
-    bookings.append(new_booking)
+    new_booking = create_booking(user_id, room_id, start_time, end_time)
 
     return jsonify(new_booking), 201
 
+
+@main_bp.route("/api/bookings/<int:booking_id>", methods=["PATCH"])
+def api_update_booking(booking_id):
+    user_id = 1
+    data = request.get_json()
+
+    room_id = data.get("room_id")
+    start_time = data.get("start_time")
+    end_time = data.get("end_time")
+
+    if room_id is None or start_time is None or end_time is None:
+        return jsonify({"error": "Missing booking information"}), 400
+
+    room = get_room_by_id(room_id)
+
+    if room is None:
+        return jsonify({"error": "Room not found"}), 404
+
+    booking = get_booking_by_id(booking_id)
+
+    if booking is None:
+        return jsonify({"error": "Booking not found"}), 404
+
+    if booking["user_id"] != user_id:
+        return jsonify({"error": "You cannot update another user's booking"}), 403
+
+    if has_booking_conflict(room_id, start_time, end_time, booking_id):
+        return jsonify({"error": "Room is already booked for this time"}), 409
+
+    updated_booking = update_booking(
+        booking_id,
+        user_id,
+        room_id,
+        start_time,
+        end_time
+    )
+
+    return jsonify(updated_booking), 200
+
+
+@main_bp.route("/api/bookings/<int:booking_id>", methods=["DELETE"])
+def api_delete_booking(booking_id):
+    user_id = 1
+
+    result = cancel_booking(booking_id, user_id)
+
+    if result is None:
+        return jsonify({"error": "Booking not found"}), 404
+
+    if result == "forbidden":
+        return jsonify({"error": "You cannot delete another user's booking"}), 403
+
+    return jsonify(result), 200
+
+
 @main_bp.route("/api/my-bookings")
 def api_my_bookings():
-    # Temporary until login exists
     current_user_id = 1
 
-    user_bookings = []
-
-    for booking in bookings:
-        if booking["user_id"] != current_user_id:
-            continue
-
-        room = next(
-            (room for room in studyrooms if room["id"] == booking["room_id"]),
-            None
-        )
-
-        user_bookings.append({
-            "id": booking["id"],
-            "user_id": booking["user_id"],
-            "room_id": booking["room_id"],
-            "room_number": room["room_number"] if room else "Unknown",
-            "campus": room["campus"] if room else "Unknown",
-            "description": room["description"] if room else "",
-            "start_time": booking["start_time"],
-            "end_time": booking["end_time"],
-            "status": booking["status"],
-        })
+    user_bookings = get_bookings_by_user_id(current_user_id)
 
     return jsonify(user_bookings)
