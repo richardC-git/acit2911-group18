@@ -25,7 +25,6 @@ def initialize_database():
     cursor = conn.cursor()
 
     cursor.execute(
-        
         """
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY,
@@ -34,7 +33,7 @@ def initialize_database():
             password_hash TEXT NOT NULL
         )
         """
-)
+    )
 
     cursor.execute(
         """
