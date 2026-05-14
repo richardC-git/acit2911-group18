@@ -1,5 +1,6 @@
 import sqlite3
 from pathlib import Path
+from werkzeug.security import generate_password_hash
 
 from mock_data import users, studyrooms, bookings
 
@@ -24,14 +25,16 @@ def initialize_database():
     cursor = conn.cursor()
 
     cursor.execute(
+        
         """
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
-            email TEXT NOT NULL
+            email TEXT NOT NULL,
+            password_hash TEXT NOT NULL
         )
         """
-    )
+)
 
     cursor.execute(
         """
@@ -337,6 +340,27 @@ def cancel_booking(booking_id, user_id):
 
     return booking
 
+def get_user_by_email(email):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT id, name, email, password_hash
+        FROM users
+        WHERE email = ?
+        """,
+        (email,)
+    )
+
+    user = cursor.fetchone()
+    conn.close()
+
+    if user is None:
+        return None
+
+    return dict(user)
+
 
 def seed_database():
     initialize_database()
@@ -345,12 +369,19 @@ def seed_database():
     cursor = conn.cursor()
 
     for user in users:
+        password_hash = generate_password_hash(user["password"])
+
         cursor.execute(
             """
-            INSERT OR IGNORE INTO users (id, name, email)
-            VALUES (?, ?, ?)
+            INSERT OR IGNORE INTO users (id, name, email, password_hash)
+            VALUES (?, ?, ?, ?)
             """,
-            (user["id"], user["name"], user["email"])
+            (
+                user["id"],
+                user["name"],
+                user["email"],
+                password_hash
+            )
         )
 
     for room in studyrooms:

@@ -1,10 +1,40 @@
 users = [
-    {"id": 1, "name": "Richard Cunningham", "email": "richard@example.com"},
-    {"id": 2, "name": "Luke Dimal", "email": "luke@example.com"},
-    {"id": 3, "name": "Christian Do", "email": "christian@example.com"},
-    {"id": 4, "name": "Arash Farzaneh", "email": "arash@example.com"},
-    {"id": 5, "name": "Dalli Kubat", "email": "dalli@example.com"},
-    {"id": 6, "name": "Joshua Otieno", "email": "joshua@example.com"},
+    {
+        "id": 1,
+        "name": "Richard Cunningham",
+        "email": "richard@example.com",
+        "password": "studyroom123",
+    },
+    {
+        "id": 2,
+        "name": "Luke Dimal",
+        "email": "luke@example.com",
+        "password": "studyroom123",
+    },
+    {
+        "id": 3,
+        "name": "Christian Do",
+        "email": "christian@example.com",
+        "password": "studyroom123",
+    },
+    {
+        "id": 4,
+        "name": "Arash Farzaneh",
+        "email": "arash@example.com",
+        "password": "studyroom123",
+    },
+    {
+        "id": 5,
+        "name": "Dalli Kubat",
+        "email": "dalli@example.com",
+        "password": "studyroom123",
+    },
+    {
+        "id": 6,
+        "name": "Joshua Otieno",
+        "email": "joshua@example.com",
+        "password": "studyroom123",
+    },
 ]
 
 
