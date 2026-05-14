@@ -1,4 +1,5 @@
-from flask import Blueprint, send_from_directory, jsonify, request
+from flask import Blueprint, send_from_directory, jsonify, request, session
+from werkzeug.security import check_password_hash
 
 from database import (
     get_all_rooms,
@@ -9,6 +10,7 @@ from database import (
     update_booking,
     cancel_booking,
     has_booking_conflict,
+    get_user_by_email
 )
 
 main_bp = Blueprint("main", __name__)
@@ -103,7 +105,9 @@ def api_create_booking():
     start_time = data.get("start_time")
     end_time = data.get("end_time")
 
-    user_id = 1
+    user_id = session.get("user_id")
+    if user_id is None:
+        return jsonify({"error": "Authentication required"}), 401
 
     if room_id is None or start_time is None or end_time is None:
         return jsonify({"error": "Missing booking information"}), 400
@@ -123,7 +127,10 @@ def api_create_booking():
 
 @main_bp.route("/api/bookings/<int:booking_id>", methods=["PATCH"])
 def api_update_booking(booking_id):
-    user_id = 1
+    user_id = session.get("user_id")
+    if user_id is None:
+        return jsonify({"error": "Authentication required"}), 401
+
     data = request.get_json()
 
     room_id = data.get("room_id")
@@ -162,7 +169,9 @@ def api_update_booking(booking_id):
 
 @main_bp.route("/api/bookings/<int:booking_id>", methods=["DELETE"])
 def api_delete_booking(booking_id):
-    user_id = 1
+    user_id = session.get("user_id")
+    if user_id is None:
+        return jsonify({"error": "Authentication required"}), 401
 
     result = cancel_booking(booking_id, user_id)
 
@@ -177,8 +186,73 @@ def api_delete_booking(booking_id):
 
 @main_bp.route("/api/my-bookings")
 def api_my_bookings():
-    current_user_id = 1
+    current_user_id = session.get("user_id")
+    if current_user_id is None:
+        return jsonify({"error": "Authentication required"}), 401
 
     user_bookings = get_bookings_by_user_id(current_user_id)
 
     return jsonify(user_bookings)
+
+@main_bp.route("/login")
+def login_page():
+    return send_from_directory("static", "login.html")
+
+# API endpoint for handling login requests
+@main_bp.route("/api/login", methods=["POST"])
+def api_login():
+    data = request.get_json(silent=True) or {}
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    user = get_user_by_email(email)
+
+    if user is None:
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    password_is_valid = check_password_hash(
+        user["password_hash"],
+        password
+    )
+
+    if not password_is_valid:
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    session.clear()
+    session["user_id"] = user["id"]
+
+    return jsonify({
+        "message": "Login successful",
+        "user": {
+            "id": user["id"],
+            "name": user["name"],
+            "email": user["email"],
+        }
+    }), 200
+    
+# Logout endpoint to clear the session
+@main_bp.route("/api/logout", methods=["POST"])
+def api_logout():
+    session.clear()
+
+    return jsonify({"message": "Logout successful"}), 200
+
+# Session check endpoint for frontend to determine if user is logged in
+@main_bp.route("/api/session")
+def api_session():
+    user_id = session.get("user_id")
+
+    if user_id is None:
+        return jsonify({
+            "logged_in": False,
+            "user_id": None,
+        }), 200
+
+    return jsonify({
+        "logged_in": True,
+        "user_id": user_id,
+    }), 200
