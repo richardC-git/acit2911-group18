@@ -35,8 +35,6 @@ def reset_database():
     conn.close()
 
     seed_database()
-    
-import pytest
 
 
 @pytest.fixture
