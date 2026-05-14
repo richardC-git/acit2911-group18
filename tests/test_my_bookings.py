@@ -17,10 +17,9 @@ def test_my_bookings_js_file_loads(client):
     assert response.status_code == 200
 
 
-def test_api_my_bookings_returns_current_user_bookings(client):
-    # Tests that /api/my-bookings returns bookings for the temporary current user.
-    # Current user is hardcoded as user_id 1 until login exists.
-    response = client.get("/api/my-bookings")
+def test_api_my_bookings_returns_current_user_bookings(logged_in_client):
+    # Tests that /api/my-bookings returns bookings for the logged-in user.
+    response = logged_in_client.get("/api/my-bookings")
     assert response.status_code == 200
 
     bookings = response.get_json()
@@ -31,10 +30,10 @@ def test_api_my_bookings_returns_current_user_bookings(client):
         assert booking["user_id"] == 1
 
 
-def test_api_my_bookings_includes_room_details(client):
+def test_api_my_bookings_includes_room_details(logged_in_client):
     # Tests that each booking includes room information,
     # not just raw booking IDs.
-    response = client.get("/api/my-bookings")
+    response = logged_in_client.get("/api/my-bookings")
 
     assert response.status_code == 200
 
@@ -50,11 +49,11 @@ def test_api_my_bookings_includes_room_details(client):
     assert "status" in first_booking
 
 
-def test_api_my_bookings_excludes_other_users_bookings(client):
+def test_api_my_bookings_excludes_other_users_bookings(logged_in_client):
     # Tests that bookings belonging to other users are not returned.
     # The mock data has bookings for users 2, 3, 4, and 5,
     # but /api/my-bookings should only return user_id 1.
-    response = client.get("/api/my-bookings")
+    response = logged_in_client.get("/api/my-bookings")
     assert response.status_code == 200
 
     bookings = response.get_json()
@@ -62,7 +61,7 @@ def test_api_my_bookings_excludes_other_users_bookings(client):
     assert returned_user_ids == {1}
 
 
-def test_created_booking_appears_in_my_bookings(client):
+def test_created_booking_appears_in_my_bookings(logged_in_client):
     # Tests that after creating a new booking,
     # it appears in the My Bookings API response.
     payload = {
@@ -71,12 +70,12 @@ def test_created_booking_appears_in_my_bookings(client):
         "end_time": "2026-05-04 10:00",
     }
 
-    create_response = client.post("/api/bookings", json=payload)
+    create_response = logged_in_client.post("/api/bookings", json=payload)
     assert create_response.status_code == 201
 
     created_booking = create_response.get_json()
-    
-    my_bookings_response = client.get("/api/my-bookings")
+
+    my_bookings_response = logged_in_client.get("/api/my-bookings")
     assert my_bookings_response.status_code == 200
 
     my_bookings = my_bookings_response.get_json()
@@ -97,7 +96,7 @@ def test_created_booking_appears_in_my_bookings(client):
     assert matching_booking["status"] == "active"
 
 
-def test_my_bookings_returns_empty_list_if_user_has_no_bookings(client):
+def test_my_bookings_returns_empty_list_if_user_has_no_bookings(logged_in_client):
     from database import get_connection
 
     conn = get_connection()
@@ -108,7 +107,7 @@ def test_my_bookings_returns_empty_list_if_user_has_no_bookings(client):
     conn.commit()
     conn.close()
 
-    response = client.get("/api/my-bookings")
+    response = logged_in_client.get("/api/my-bookings")
 
     assert response.status_code == 200
     assert response.get_json() == []

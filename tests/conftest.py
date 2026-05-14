@@ -35,3 +35,22 @@ def reset_database():
     conn.close()
 
     seed_database()
+    
+import pytest
+
+
+@pytest.fixture
+def logged_in_client(client):
+    # Logs in as the seeded Richard test user
+    # so tests can access protected booking routes.
+    response = client.post(
+        "/api/login",
+        json={
+            "email": "richard@example.com",
+            "password": "studyroom123",
+        },
+    )
+
+    assert response.status_code == 200
+
+    return client

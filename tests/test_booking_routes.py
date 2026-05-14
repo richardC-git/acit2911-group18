@@ -63,7 +63,7 @@ def test_available_slots_excludes_already_booked_time(client):
     assert available_slot in slots
 
 
-def test_create_booking_successfully(client):
+def test_create_booking_successfully(logged_in_client):
     # Tests that a user can create a booking for an available time slot.
     # This should return the new booking with a 201 Created response.
     payload = {
@@ -72,7 +72,7 @@ def test_create_booking_successfully(client):
         "end_time": "2026-05-04 10:00",
     }
 
-    response = client.post("/api/bookings", json=payload)
+    response = logged_in_client.post("/api/bookings", json=payload)
     assert response.status_code == 201
 
     booking = response.get_json()
@@ -83,7 +83,7 @@ def test_create_booking_successfully(client):
     assert booking["status"] == "active"
 
 
-def test_created_booking_is_removed_from_available_slots(client):
+def test_created_booking_is_removed_from_available_slots(logged_in_client):
     # Tests that after a booking is created,
     # that same time slot no longer appears as available.
     payload = {
@@ -92,17 +92,17 @@ def test_created_booking_is_removed_from_available_slots(client):
         "end_time": "2026-05-04 10:00",
     }
 
-    create_response = client.post("/api/bookings", json=payload)
+    create_response = logged_in_client.post("/api/bookings", json=payload)
     assert create_response.status_code == 201
 
-    slots_response = client.get("/api/rooms/1/available-slots?date=2026-05-04")
+    slots_response = logged_in_client.get("/api/rooms/1/available-slots?date=2026-05-04")
     assert slots_response.status_code == 200
 
     slots = slots_response.get_json()
     assert payload not in slots
 
 
-def test_create_booking_rejects_conflicting_booking(client):
+def test_create_booking_rejects_conflicting_booking(logged_in_client):
     # Tests that the API rejects a booking if the room is already booked
     # during the requested time.
     payload = {
@@ -111,14 +111,14 @@ def test_create_booking_rejects_conflicting_booking(client):
         "end_time": "2026-05-04 12:00",
     }
 
-    response = client.post("/api/bookings", json=payload)
+    response = logged_in_client.post("/api/bookings", json=payload)
     assert response.status_code == 409
 
     data = response.get_json()
     assert data["error"] == "Room is already booked for this time"
 
 
-def test_create_booking_rejects_missing_data(client):
+def test_create_booking_rejects_missing_data(logged_in_client):
     # Tests that the API rejects a booking request
     # if required information is missing.
     payload = {
@@ -126,14 +126,14 @@ def test_create_booking_rejects_missing_data(client):
         "start_time": "2026-05-04 09:00",
     }
 
-    response = client.post("/api/bookings", json=payload)
+    response = logged_in_client.post("/api/bookings", json=payload)
     assert response.status_code == 400
 
     data = response.get_json()
     assert data["error"] == "Missing booking information"
 
 
-def test_create_booking_rejects_invalid_room(client):
+def test_create_booking_rejects_invalid_room(logged_in_client):
     # Tests that the API rejects a booking request
     # if the room ID does not exist.
     payload = {
@@ -142,7 +142,7 @@ def test_create_booking_rejects_invalid_room(client):
         "end_time": "2026-05-04 10:00",
     }
 
-    response = client.post("/api/bookings", json=payload)
+    response = logged_in_client.post("/api/bookings", json=payload)
     assert response.status_code == 404
 
     data = response.get_json()
