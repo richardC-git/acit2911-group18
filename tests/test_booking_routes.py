@@ -9,10 +9,10 @@ def test_rooms_page_loads(client):
     assert b"/static/js/rooms.js" in response.data
 
 
-def test_new_booking_page_loads_for_room_id(client):
-    # Tests that the New Booking page loads when given a room ID.
+def test_new_booking_page_loads_for_room_id(logged_in_client):
+    # Tests that the New Booking page loads for a logged-in user.
     # Also checks that the page imports the separate new-booking.js file.
-    response = client.get("/new-booking/1")
+    response = logged_in_client.get("/new-booking/1")
 
     assert response.status_code == 200
     assert b"New Booking" in response.data
@@ -147,3 +147,11 @@ def test_create_booking_rejects_invalid_room(logged_in_client):
 
     data = response.get_json()
     assert data["error"] == "Room not found"
+    
+def test_new_booking_page_redirects_to_login_when_logged_out(client):
+    # Tests that a logged-out user cannot access the New Booking page.
+    # They should be redirected to the login page instead.
+    response = client.get("/new-booking/1")
+
+    assert response.status_code == 302
+    assert "/login" in response.headers["Location"]

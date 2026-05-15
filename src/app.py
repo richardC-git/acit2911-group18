@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, request, session, redirect, url_for
 from routes.main import main_bp
 
 
@@ -13,6 +13,18 @@ def create_app():
     )
 
     app.register_blueprint(main_bp)
+
+    PROTECTED_STATIC_HTML = {
+        "/static/dashboard.html",
+        "/static/my-bookings.html",
+        "/static/new-booking.html",
+        "/static/calendar.html",
+    }
+
+    @app.before_request
+    def require_login_for_protected_static_pages():
+        if request.path in PROTECTED_STATIC_HTML and session.get("user_id") is None:
+            return redirect(url_for("main.login_page"))
 
     return app
 

@@ -1,8 +1,8 @@
-def test_my_bookings_page_loads(client):
-    # Tests that the My Bookings page loads successfully.
+def test_my_bookings_page_loads(logged_in_client):
+    # Tests that the My Bookings page loads for a logged-in user.
     # Also checks that the page has the bookings container
     # and imports the separate my-bookings.js file.
-    response = client.get("/my-bookings")
+    response = logged_in_client.get("/my-bookings")
 
     assert response.status_code == 200
     assert b"bookings-list" in response.data
@@ -111,3 +111,11 @@ def test_my_bookings_returns_empty_list_if_user_has_no_bookings(logged_in_client
 
     assert response.status_code == 200
     assert response.get_json() == []
+    
+def test_new_booking_page_redirects_to_login_when_logged_out(client):
+    # Tests that a logged-out user cannot access the New Booking page.
+    # They should be redirected to the login page instead.
+    response = client.get("/new-booking/1")
+
+    assert response.status_code == 302
+    assert "/login" in response.headers["Location"]
