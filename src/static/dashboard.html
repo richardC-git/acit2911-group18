@@ -1,86 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RoomBook - Dashboard</title>
-  <link rel="stylesheet" href="/static/css/dashboard.css">
-</head>
-<body>
-
-  <div class="page">
-
-    <aside class="sidebar">
-      <div class="logo">
-        <h1>Room<span>Book</span></h1>
-        <p>Meeting Room System</p>
-      </div>
-
-      <nav>
-        <a href="/" class="active">Dashboard</a>
-        <a href="/rooms">Rooms</a>
-        <a href="/my-bookings">My Bookings</a>
-        <a href="/calendar">Calendar</a>
-      </nav>
-
-      <a href="/rooms" class="new-booking">+ New Booking</a>
-    </aside>
-
-    <main class="main">
-
-      <header class="header">
-        <div>
-          <h2>Dashboard</h2>
-          <p>Thursday, April 30, 2026</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RoomBook - Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css" />
+  </head>
+  <body>
+    <div class="page">
+      <aside class="sidebar">
+        <div class="logo">
+          <h1>Room<span>Book</span></h1>
+          <p>Meeting Room System</p>
         </div>
 
-        <a href="/rooms" class="top-button">+ New Booking</a>
-      </header>
+        <nav>
+          <a href="/" class="active">Dashboard</a>
+          <a href="/rooms">Rooms</a>
+          <a href="/my-bookings">My Bookings</a>
+          <a href="/calendar">Calendar</a>
+        </nav>
 
-      <section class="stats">
+        <a href="/rooms" class="new-booking">+ New Booking</a>
+      </aside>
 
-        <article class="stat-card">
-          <div class="icon">Rooms</div>
+      <main class="main">
+        <header class="header">
           <div>
-            <p>Total Rooms</p>
-            <h3>9</h3>
+            <h2>Dashboard</h2>
+            <p>Thursday, April 30, 2026</p>
           </div>
-        </article>
 
-        <article class="stat-card">
-          <div class="icon orange">Today</div>
-          <div>
-            <p>Today's Bookings</p>
-            <h3>0</h3>
+          <a href="/rooms" class="top-button">+ New Booking</a>
+        </header>
+
+        <section class="stats">
+          <article class="stat-card">
+            <div class="icon">
+              <img src="group-38.png" alt="Rooms Icon" />
+            </div>
+
+            <div>
+              <p>Total Rooms</p>
+              <h3>9</h3>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="icon orange">
+              <img
+                src="ico-reception-room-reservation.png"
+                alt="Today's Booking Icon"
+              />
+            </div>
+
+            <div>
+              <p>Today's Bookings</p>
+              <h3>0</h3>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="icon">
+              <img src="calendar-249.png" alt="Upcoming Icon" />
+            </div>
+
+            <div>
+              <p>Upcoming</p>
+              <h3>0</h3>
+            </div>
+          </article>
+        </section>
+
+        <section class="booking-title">
+          <h2>Upcoming Bookings</h2>
+          <a href="/my-bookings">View all →</a>
+        </section>
+
+        <section class="empty-card">
+          <div class="empty-content">
+            <p class="empty-icon">Calendar</p>
+            <p>No upcoming bookings</p>
+            <a href="/rooms">Book a Room</a>
           </div>
-        </article>
-
-        <article class="stat-card">
-          <div class="icon">Soon</div>
-          <div>
-            <p>Upcoming</p>
-            <h3>0</h3>
-          </div>
-        </article>
-
-      </section>
-
-      <section class="booking-title">
-        <h2>Upcoming Bookings</h2>
-        <a href="/my-bookings">View all →</a>
-      </section>
-
-      <section class="empty-card">
-        <div class="empty-content">
-          <p class="empty-icon">Calendar</p>
-          <p>No upcoming bookings</p>
-          <a href="/rooms">Book a Room</a>
-        </div>
-      </section>
-
-    </main>
-
-  </div>
-  <script src="/static/js/auth-redirect.js"></script>
-</body>
+        </section>
+      </main>
+    </div>
+    <script src="/static/js/auth-redirect.js"></script>
+  </body>
 </html>
