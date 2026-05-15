@@ -14,6 +14,7 @@
 
       <div class="logo">
         <h1>Room<span>Book</span></h1>
+        <p>Study Room Booking System</p>
       </div>
 
       <div class="login-heading">
@@ -21,30 +22,42 @@
         <p>Enter your details to access your account</p>
       </div>
 
-      <form action="dashboard.html" method="get">
+      <form id="login-form">
 
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" id="login-button">Login</button>
 
       </form>
 
-      <p class="extra-text">
-        Do not have an account?
-        <a href="#">Create one</a>
-      </p>
+      <p id="login-message" class="login-message"></p>
 
     </section>
 
   </main>
 
+  <script src="/static/js/login.js"></script>
 </body>
 </html>
