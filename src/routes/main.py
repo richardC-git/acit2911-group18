@@ -1,4 +1,5 @@
-from flask import Blueprint, send_from_directory, jsonify, request, session
+from flask import Blueprint, send_from_directory, jsonify, request, session, redirect, url_for
+from functools import wraps
 from werkzeug.security import check_password_hash
 
 from database import (
@@ -15,6 +16,17 @@ from database import (
 
 main_bp = Blueprint("main", __name__)
 
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(*args, **kwargs):
+        if session.get("user_id") is None:
+            if request.path.startswith("/api/"):
+                return jsonify({"error": "Authentication required"}), 401
+            return redirect(url_for("main.login_page"))
+        return view(*args, **kwargs)
+
+    return wrapped_view
+
 AVAILABLE_SLOTS = [
     ("09:00", "10:00"),
     ("10:00", "11:00"),
@@ -27,6 +39,7 @@ AVAILABLE_SLOTS = [
 
 
 @main_bp.route("/")
+@login_required
 def dashboard():
     return send_from_directory("static", "dashboard.html")
 
@@ -37,16 +50,19 @@ def rooms():
 
 
 @main_bp.route("/my-bookings")
+@login_required
 def my_bookings():
     return send_from_directory("static", "my-bookings.html")
 
 
 @main_bp.route("/calendar")
+@login_required
 def calendar():
     return send_from_directory("static", "calendar.html")
 
 
 @main_bp.route("/new-booking/<int:room_id>")
+@login_required
 def new_booking(room_id):
     return send_from_directory("static", "new-booking.html")
 
@@ -98,16 +114,15 @@ def available_slots(room_id):
 
 
 @main_bp.route("/api/bookings", methods=["POST"])
+@login_required
 def api_create_booking():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     room_id = data.get("room_id")
     start_time = data.get("start_time")
     end_time = data.get("end_time")
 
     user_id = session.get("user_id")
-    if user_id is None:
-        return jsonify({"error": "Authentication required"}), 401
 
     if room_id is None or start_time is None or end_time is None:
         return jsonify({"error": "Missing booking information"}), 400
@@ -126,12 +141,11 @@ def api_create_booking():
 
 
 @main_bp.route("/api/bookings/<int:booking_id>", methods=["PATCH"])
+@login_required
 def api_update_booking(booking_id):
     user_id = session.get("user_id")
-    if user_id is None:
-        return jsonify({"error": "Authentication required"}), 401
 
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     room_id = data.get("room_id")
     start_time = data.get("start_time")
@@ -168,10 +182,9 @@ def api_update_booking(booking_id):
 
 
 @main_bp.route("/api/bookings/<int:booking_id>", methods=["DELETE"])
+@login_required
 def api_delete_booking(booking_id):
     user_id = session.get("user_id")
-    if user_id is None:
-        return jsonify({"error": "Authentication required"}), 401
 
     result = cancel_booking(booking_id, user_id)
 
@@ -185,10 +198,9 @@ def api_delete_booking(booking_id):
 
 
 @main_bp.route("/api/my-bookings")
+@login_required
 def api_my_bookings():
     current_user_id = session.get("user_id")
-    if current_user_id is None:
-        return jsonify({"error": "Authentication required"}), 401
 
     user_bookings = get_bookings_by_user_id(current_user_id)
 
@@ -202,7 +214,6 @@ def login_page():
 @main_bp.route("/api/login", methods=["POST"])
 def api_login():
     data = request.get_json(silent=True) or {}
-
     email = data.get("email")
     password = data.get("password")
 
@@ -211,18 +222,13 @@ def api_login():
 
     user = get_user_by_email(email)
 
-    if user is None:
+    stored_password_hash = None
+    if user is not None:
+        stored_password_hash = user.get("password_hash") or user.get("password")
+
+    if user is None or not stored_password_hash or not check_password_hash(stored_password_hash, password):
         return jsonify({"error": "Invalid email or password"}), 401
 
-    password_is_valid = check_password_hash(
-        user["password_hash"],
-        password
-    )
-
-    if not password_is_valid:
-        return jsonify({"error": "Invalid email or password"}), 401
-
-    session.clear()
     session["user_id"] = user["id"]
 
     return jsonify({
@@ -231,7 +237,7 @@ def api_login():
             "id": user["id"],
             "name": user["name"],
             "email": user["email"],
-        }
+        },
     }), 200
     
 # Logout endpoint to clear the session
@@ -256,3 +262,4 @@ def api_session():
         "logged_in": True,
         "user_id": user_id,
     }), 200
+
