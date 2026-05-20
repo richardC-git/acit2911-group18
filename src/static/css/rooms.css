@@ -160,6 +160,15 @@ nav .active {
   font-size: 14px;
 }
 
+.room-card {
+  transition: 0.2s;
+}
+
+.room-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
 @media screen and (max-width: 800px) {
   .page {
     flex-direction: column;
@@ -192,4 +201,125 @@ nav .active {
   font-size: 14px;
   color: #4b5563;
   margin-bottom: 4px;
+}
+
+.logout-button {
+  margin: 18px auto 12px;
+  width: 80%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffb3b3;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #dc2626;
+  color: white;
+}
+
+.room-card,
+.stat-card,
+.empty-card,
+.calendar-card {
+  transition: 0.2s ease;
+}
+
+.room-card:hover,
+.stat-card:hover,
+.empty-card:hover,
+.calendar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.top-button,
+.new-booking,
+.logout-button {
+  transition: 0.2s ease;
+}
+
+.top-button:hover,
+.new-booking:hover {
+  background-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+.user-box {
+  margin: 0 16px 20px;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.user-box p {
+  font-size: 12px;
+  color: #c8d5ff;
+  margin-bottom: 4px;
+}
+
+.user-box strong {
+  color: white;
+  font-size: 14px;
+}
+
+.filters {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.filters input,
+.filters select {
+  padding: 13px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.filters input {
+  flex: 1;
+}
+
+.filters select {
+  width: 180px;
+  background-color: white;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #365fb4;
+  box-shadow: 0 0 0 3px rgba(54, 95, 180, 0.15);
+}
+
+.no-rooms {
+  width: 100%;
+  background-color: white;
+  border: 1px solid #e3e7ee;
+  border-radius: 12px;
+  padding: 36px;
+  text-align: center;
+}
+
+.no-rooms h3 {
+  color: #365fb4;
+  margin-bottom: 8px;
+}
+
+.no-rooms p {
+  color: #6b7280;
+}
+
+@media screen and (max-width: 800px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters select {
+    width: 100%;
+  }
 }

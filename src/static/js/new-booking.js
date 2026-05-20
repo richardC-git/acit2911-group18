@@ -8,6 +8,11 @@ const timeSlot = document.getElementById("time-slot");
 const bookingForm = document.getElementById("booking-form");
 const message = document.getElementById("message");
 
+const today = new Date().toISOString().split("T")[0];
+
+bookingDate.value = today;
+bookingDate.min = today;
+
 async function loadRoom() {
   const response = await fetch(`/api/rooms/${roomId}`);
 

@@ -18,6 +18,112 @@ function renderEmptyState() {
   `;
 }
 
+function createSectionTitle(title) {
+  const heading = document.createElement("h3");
+  heading.className = "booking-section-title";
+  heading.textContent = title;
+
+  bookingsList.appendChild(heading);
+}
+
+function renderBookingCard(booking, isPastBooking) {
+  const card = document.createElement("article");
+  card.className = "booking-card";
+
+  const bookingDate = booking.start_time.slice(0, 10);
+
+  let actionsHtml = "";
+
+  if (!isPastBooking) {
+    actionsHtml = `
+      <div class="booking-actions">
+        <button
+          class="update-button"
+          onclick="showUpdateForm(${booking.id}, ${booking.room_id})"
+        >
+          Update
+        </button>
+
+        <button
+          class="delete-button"
+          onclick="deleteBooking(${booking.id})"
+        >
+          Delete
+        </button>
+      </div>
+
+      <div class="update-form" id="update-form-${booking.id}">
+        <h4>Update Booking</h4>
+
+        <label>Date</label>
+        <input
+          type="date"
+          id="date-${booking.id}"
+          value="${bookingDate}"
+          onchange="loadAvailableSlots(${booking.id}, ${booking.room_id})"
+        >
+
+        <label>Available Time Slots</label>
+        <select id="slot-${booking.id}">
+          <option value="">Loading slots...</option>
+        </select>
+
+        <p class="form-message" id="message-${booking.id}"></p>
+
+        <div class="update-form-actions">
+          <button
+            class="save-button"
+            onclick="updateBooking(${booking.id}, ${booking.room_id})"
+          >
+            Save Update
+          </button>
+
+          <button
+            class="cancel-button"
+            onclick="hideUpdateForm(${booking.id})"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  card.innerHTML = `
+    <div class="booking-details">
+      <h3>Room ${booking.room_number}</h3>
+
+    <p><strong>Campus:</strong> ${booking.campus}</p>
+    <p><strong>Start:</strong> ${formatDateTime(booking.start_time)}</p>
+    <p><strong>End:</strong> ${formatDateTime(booking.end_time)}</p>
+
+    <p>
+      <strong>Status:</strong>
+      ${isPastBooking ? "completed" : booking.status}
+    </p>
+
+      <p>${booking.description}</p>
+
+      ${isPastBooking ? `
+      <p class="past-label">Past booking</p>
+
+      <div class="booking-actions">
+        <button
+          class="delete-button"
+          onclick="deleteBooking(${booking.id})"
+        >
+          Remove from History
+        </button>
+      </div>
+    ` : ""}
+
+      ${actionsHtml}
+    </div>
+  `;
+
+  bookingsList.appendChild(card);
+}
+
 function renderBookings(bookings) {
   bookingsList.innerHTML = "";
 
@@ -26,78 +132,39 @@ function renderBookings(bookings) {
     return;
   }
 
-  bookings.forEach(booking => {
-    const card = document.createElement("article");
-    card.className = "booking-card";
+  const now = new Date();
 
-    const bookingDate = booking.start_time.slice(0, 10);
+  const upcomingBookings = bookings.filter(booking =>
+    new Date(booking.start_time) >= now
+  );
 
-    card.innerHTML = `
-      <div class="booking-details">
-        <h3>Room ${booking.room_number}</h3>
+  const pastBookings = bookings.filter(booking =>
+    new Date(booking.start_time) < now
+  );
 
-        <p><strong>Campus:</strong> ${booking.campus}</p>
-        <p><strong>Start:</strong> ${formatDateTime(booking.start_time)}</p>
-        <p><strong>End:</strong> ${formatDateTime(booking.end_time)}</p>
-        <p><strong>Status:</strong> ${booking.status}</p>
-
-        <p>${booking.description}</p>
-
-        <div class="booking-actions">
-          <button
-            class="update-button"
-            onclick="showUpdateForm(${booking.id}, ${booking.room_id})"
-          >
-            Update
-          </button>
-
-          <button
-            class="delete-button"
-            onclick="deleteBooking(${booking.id})"
-          >
-            Delete
-          </button>
-        </div>
-
-        <div class="update-form" id="update-form-${booking.id}">
-          <h4>Update Booking</h4>
-
-          <label>Date</label>
-          <input
-            type="date"
-            id="date-${booking.id}"
-            value="${bookingDate}"
-            onchange="loadAvailableSlots(${booking.id}, ${booking.room_id})"
-          >
-
-          <label>Available Time Slots</label>
-          <select id="slot-${booking.id}">
-            <option value="">Loading slots...</option>
-          </select>
-
-          <p class="form-message" id="message-${booking.id}"></p>
-
-          <div class="update-form-actions">
-            <button
-              class="save-button"
-              onclick="updateBooking(${booking.id}, ${booking.room_id})"
-            >
-              Save Update
-            </button>
-
-            <button
-              class="cancel-button"
-              onclick="hideUpdateForm(${booking.id})"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    bookingsList.appendChild(card);
+  upcomingBookings.sort((a, b) => {
+    return new Date(a.start_time) - new Date(b.start_time);
   });
+
+  pastBookings.sort((a, b) => {
+    return new Date(b.start_time) - new Date(a.start_time);
+  });
+
+  if (upcomingBookings.length > 0) {
+    createSectionTitle("Upcoming Bookings");
+
+    upcomingBookings.forEach(booking => {
+      renderBookingCard(booking, false);
+    });
+  }
+
+  if (pastBookings.length > 0) {
+    createSectionTitle("Past Bookings");
+
+    pastBookings.forEach(booking => {
+      renderBookingCard(booking, true);
+    });
+  }
 }
 
 function showUpdateForm(bookingId, roomId) {
