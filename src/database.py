@@ -360,6 +360,27 @@ def get_user_by_email(email):
 
     return dict(user)
 
+def get_user_by_id(user_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT id, name, email
+        FROM users
+        WHERE id = ?
+        """,
+        (user_id,)
+    )
+
+    user = cursor.fetchone()
+    conn.close()
+
+    if user is None:
+        return None
+
+    return dict(user)
+
 
 def seed_database():
     initialize_database()

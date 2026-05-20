@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from flask import Blueprint, send_from_directory, jsonify, request, session, redirect, url_for
 from functools import wraps
 from werkzeug.security import check_password_hash
@@ -11,10 +12,12 @@ from database import (
     update_booking,
     cancel_booking,
     has_booking_conflict,
-    get_user_by_email
+    get_user_by_email,
+    get_user_by_id
 )
 
 main_bp = Blueprint("main", __name__)
+
 
 def login_required(view):
     @wraps(view)
@@ -26,6 +29,7 @@ def login_required(view):
         return view(*args, **kwargs)
 
     return wrapped_view
+
 
 AVAILABLE_SLOTS = [
     ("09:00", "10:00"),
@@ -85,7 +89,7 @@ def api_room(room_id):
 
 @main_bp.route("/api/rooms/<int:room_id>/available-slots")
 def available_slots(room_id):
-    date = request.args.get("date", "2026-05-04")
+    selected_date = request.args.get("date", date.today().isoformat())
     exclude_booking_id = request.args.get("exclude_booking_id", type=int)
 
     room = get_room_by_id(room_id)
@@ -94,10 +98,19 @@ def available_slots(room_id):
         return jsonify({"error": "Room not found"}), 404
 
     available = []
+    now = datetime.now()
 
     for start, end in AVAILABLE_SLOTS:
-        requested_start = f"{date} {start}"
-        requested_end = f"{date} {end}"
+        requested_start = f"{selected_date} {start}"
+        requested_end = f"{selected_date} {end}"
+
+        requested_start_datetime = datetime.strptime(
+            requested_start,
+            "%Y-%m-%d %H:%M"
+        )
+
+        if requested_start_datetime < now:
+            continue
 
         if not has_booking_conflict(
             room_id,
@@ -201,16 +214,16 @@ def api_delete_booking(booking_id):
 @login_required
 def api_my_bookings():
     current_user_id = session.get("user_id")
-
     user_bookings = get_bookings_by_user_id(current_user_id)
 
     return jsonify(user_bookings)
+
 
 @main_bp.route("/login")
 def login_page():
     return send_from_directory("static", "login.html")
 
-# API endpoint for handling login requests
+
 @main_bp.route("/api/login", methods=["POST"])
 def api_login():
     data = request.get_json(silent=True) or {}
@@ -239,15 +252,15 @@ def api_login():
             "email": user["email"],
         },
     }), 200
-    
-# Logout endpoint to clear the session
+
+
 @main_bp.route("/api/logout", methods=["POST"])
 def api_logout():
     session.clear()
 
     return jsonify({"message": "Logout successful"}), 200
 
-# Session check endpoint for frontend to determine if user is logged in
+
 @main_bp.route("/api/session")
 def api_session():
     user_id = session.get("user_id")
@@ -258,8 +271,10 @@ def api_session():
             "user_id": None,
         }), 200
 
+    user = get_user_by_id(user_id)
+
     return jsonify({
         "logged_in": True,
         "user_id": user_id,
+        "user_name": user["name"] if user else "User",
     }), 200
-
