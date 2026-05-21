@@ -99,6 +99,7 @@ def available_slots(room_id):
 
     available = []
     now = datetime.now()
+    today_string = date.today().isoformat()
 
     for start, end in AVAILABLE_SLOTS:
         requested_start = f"{selected_date} {start}"
@@ -109,7 +110,7 @@ def available_slots(room_id):
             "%Y-%m-%d %H:%M"
         )
 
-        if requested_start_datetime < now:
+        if selected_date == today_string and requested_start_datetime < now:
             continue
 
         if not has_booking_conflict(
