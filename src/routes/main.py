@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 from flask import Blueprint, send_from_directory, jsonify, request, session, redirect, url_for
 from functools import wraps
 from werkzeug.security import check_password_hash
@@ -98,20 +98,10 @@ def available_slots(room_id):
         return jsonify({"error": "Room not found"}), 404
 
     available = []
-    now = datetime.now()
-    today_string = date.today().isoformat()
 
     for start, end in AVAILABLE_SLOTS:
         requested_start = f"{selected_date} {start}"
         requested_end = f"{selected_date} {end}"
-
-        requested_start_datetime = datetime.strptime(
-            requested_start,
-            "%Y-%m-%d %H:%M"
-        )
-
-        if selected_date == today_string and requested_start_datetime < now:
-            continue
 
         if not has_booking_conflict(
             room_id,
